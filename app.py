@@ -231,6 +231,13 @@ def representative_point(geom):
     except Exception:
         return None
 
+# === Helper de lectura: usa pyogrio si existe; si no, fiona ===
+def _gpd_read(path):
+    try:
+        return gpd.read_file(path, engine="pyogrio")
+    except Exception:
+        return gpd.read_file(path)
+
 def read_geo_upload(uploaded_file):
     suffix = os.path.splitext(uploaded_file.name.lower())[1]
     with tempfile.TemporaryDirectory() as td:
@@ -248,7 +255,7 @@ def read_geo_upload(uploaded_file):
                         break
             if shp is None:
                 raise RuntimeError("El .zip no contiene un .shp.")
-            gdf = gpd.read_file(shp, engine="pyogrio")
+            gdf = _gpd_read(shp)
         elif suffix in [".kmz", ".kml"]:
             if suffix == ".kmz":
                 with zipfile.ZipFile(fpath, 'r') as zf:
@@ -261,9 +268,9 @@ def read_geo_upload(uploaded_file):
                             break
                 if not kml_path:
                     raise RuntimeError("El KMZ no contiene un KML interno.")
-                gdf = gpd.read_file(kml_path, engine="pyogrio")
+                gdf = _gpd_read(kml_path)
             else:
-                gdf = gpd.read_file(fpath, engine="pyogrio")
+                gdf = _gpd_read(fpath)
         else:
             raise RuntimeError("Formato no soportado. Sube .zip (SHP) o .kmz/.kml.")
         if gdf.crs is None:
