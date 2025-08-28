@@ -3,7 +3,8 @@ pandas==2.2.2
 numpy==1.26.4
 dropbox==12.0.2
 geopandas==0.14.4
+fiona==1.9.6
+pyproj==3.6.1
 shapely==2.0.4
 folium==0.16.0
 streamlit-folium==0.22.0
-# pyogrio es opcional, si no quieres problemas con gdal lo puedes omitir
