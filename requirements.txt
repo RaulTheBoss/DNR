@@ -5,9 +5,12 @@ numpy==1.26.4
 geopandas==0.14.4
 shapely==2.0.4
 pyproj==3.6.1
-rtree==1.2.0
+# rtree y fiona fuera para evitar binarios de GDAL
+# rtree==1.2.0
+# fiona==1.9.6
+
+# Prueba primero con 0.8.0; si falla, prueba 0.7.2
 pyogrio==0.8.0
-# (No instales fiona a menos que sea imprescindible)
 
 folium==0.17.0
 streamlit-folium==0.22.0
