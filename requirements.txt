@@ -6,7 +6,7 @@ geopandas==0.14.4
 shapely==2.0.4
 pyproj==3.6.1
 rtree==1.2.0
-pyogrio==0.7.2
+pyogrio==0.8.0
 # (No instales fiona a menos que sea imprescindible)
 
 folium==0.17.0
