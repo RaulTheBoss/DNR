@@ -1,11 +1,23 @@
-streamlit==1.36.0
+# Web UI
+streamlit==1.38.0
+
+# Datos
 pandas==2.2.2
-dropbox==12.0.2
+numpy==1.26.4
 
+# Mapas / Geo
 geopandas==0.14.4
-fiona==1.9.6
-pyproj==3.6.1
 shapely==2.0.4
+pyproj==3.6.1
+rtree==1.2.0
+# Lectura rápida de formatos vectoriales (preferida por tu código)
+pyogrio==0.7.2
+# Fallback para lectura KML/KMZ/SHP si pyogrio no está disponible
+fiona==1.9.6
 
-folium==0.16.0
+# Mapas interactivos
+folium==0.17.0
 streamlit-folium==0.22.0
+
+# Dropbox SDK
+dropbox==12.0.2
