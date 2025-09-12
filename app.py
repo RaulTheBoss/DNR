@@ -502,7 +502,7 @@ with st.form("encuesta_form"):
                 st.error(f"No se pudo leer el archivo: {e}")
 
     municipios_seleccionados = st.multiselect(
-        "Municipios CAR (En caso de que sea toda la jurisdicciòn seleccionar la opciòn del boton "Toda la jurisdicciòn")",
+        "Municipios CAR (En caso de que sea toda la jurisdicciòn seleccionar la opciòn del botòn Toda la jurisdicciòn)",
         options=mun_list,
         default=st.session_state.muni_sel,
         key="muni_sel"
@@ -734,5 +734,6 @@ if not df_latest.empty:
             folium.CircleMarker(location=[lat, lon], radius=6, popup=popup).add_to(m)
 
 st_folium(m, height=520, width=1000)
+
 
 
