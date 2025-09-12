@@ -502,7 +502,7 @@ with st.form("encuesta_form"):
                 st.error(f"No se pudo leer el archivo: {e}")
 
     municipios_seleccionados = st.multiselect(
-        "Municipios CAR (En caso de que sea toda la jurisdicciòn seleccionar la opciòn del botòn Toda la jurisdicciòn)",
+        "Municipios CAR (En caso de que sea toda la jurisdicciòn seleccionar la opciòn del botòn Toda la jurisdicciòn al inicio del formulario)",
         options=mun_list,
         default=st.session_state.muni_sel,
         key="muni_sel"
@@ -513,7 +513,7 @@ with st.form("encuesta_form"):
     # ---- inversión: solo radio, sin pregunta condicional ----
     st.markdown("**Inversión por municipios**")
     inversion_equidad = st.radio(
-        "¿La inversión se distribuye equitativamente entre los municipios?",
+        "¿La inversión se distribuye equitativamente entre los municipios? por favor mencionar por municipio el valor de la inversiòn ",
         options=["Si", "No"],
         index=0,
         horizontal=True
@@ -734,6 +734,7 @@ if not df_latest.empty:
             folium.CircleMarker(location=[lat, lon], radius=6, popup=popup).add_to(m)
 
 st_folium(m, height=520, width=1000)
+
 
 
 
