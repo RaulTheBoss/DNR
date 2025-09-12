@@ -513,7 +513,7 @@ with st.form("encuesta_form"):
     # ---- inversión: solo radio, sin pregunta condicional ----
     st.markdown("**Inversión por municipios**")
     inversion_equidad = st.radio(
-        "¿La inversión se distribuye equitativamente entre los municipios? por favor mencionar por municipio el valor de la inversiòn de la suiguiente manera: municipio valor ( Ejemplo: SOACHA 1250000; SUTATAUSA 10000000; SIMIJICA 13000000)  ",
+        "¿La inversión se distribuye equitativamente entre los municipios? por favor mencionar por municipio el valor de la inversiòn de la siguiente manera: municipio valor ( Ejemplo: SOACHA 1250000; SUTATAUSA 10000000; SIMIJICA 13000000)  ",
         options=["Si", "No"],
         index=0,
         horizontal=True
@@ -734,6 +734,7 @@ if not df_latest.empty:
             folium.CircleMarker(location=[lat, lon], radius=6, popup=popup).add_to(m)
 
 st_folium(m, height=520, width=1000)
+
 
 
 
