@@ -166,8 +166,7 @@ def representative_point(geom):
 def _drop_datetime_cols_for_folium(gdf):
     import pandas as pd
     for c in gdf.columns:
-        s = gdf[c]
-        if pd.api.types.is_datetime64_any_dtype(s):
+        if pd.api.types.is_datetime64_any_dtype(gdf[c]):
             gdf = gdf.drop(columns=[c], errors="ignore")
     return gdf
 
@@ -202,13 +201,11 @@ mun_gdf, mun_list, mun_name_col = load_municipios_car_auto()
 # ========= Formulario principal =========
 st.header("Encuesta")
 with st.form("encuesta_form"):
-    # --- Proyecto ---
     proyecto_nombre = st.text_input("Nombre del proyecto")
     costo_proyecto = st.number_input("Costo del proyecto (COP)", min_value=0.0, step=1000.0)
     avance_proyecto = st.number_input("Avance físico (%)", min_value=0, max_value=100, step=1)
     fecha_dilig = st.date_input("Fecha de diligenciamiento", value=date.today())
 
-    # --- Municipios ---
     st.markdown("**Municipios del proyecto**")
     geo_file = st.file_uploader("Archivo geográfico (opcional)", type=["zip","kmz","kml"])
     preview_clicked = st.form_submit_button("🔎 Previsualizar capa y detectar municipios", type="secondary")
@@ -234,7 +231,7 @@ with st.form("encuesta_form"):
             st.error(f"No se pudo procesar el archivo: {e}")
 
     municipios_seleccionados = st.multiselect(
-        "Municipios CAR (usa los botones de abajo para seleccionar todos o limpiar)",
+        "Municipios CAR (usa los botones debajo para seleccionar todos o limpiar)",
         options=mun_list,
         default=st.session_state.muni_sel,
         key="muni_sel"
@@ -242,23 +239,24 @@ with st.form("encuesta_form"):
     if set(municipios_seleccionados) != set(mun_list):
         st.session_state._mun_sel_all = False
 
-    # ---- Botones debajo del multiselect ----
-    col1b, col2b = st.columns([1,1])
-    with col1b:
-        if st.form_submit_button("Toda la jurisdicción"):
-            st.session_state.muni_sel = mun_list[:]
-            st.session_state._mun_sel_all = True
-            st.success("Se seleccionaron todos los municipios.")
-    with col2b:
-        if st.form_submit_button("Limpiar selección"):
-            st.session_state.muni_sel = []
-            st.session_state._mun_sel_all = False
-            st.info("Selección de municipios limpiada.")
-
     inversion_equidad = st.radio("¿Inversión equitativa?", options=["Si","No"], horizontal=True)
     comentario = st.text_area("Comentarios sobre distribución de la inversión")
 
     submitted = st.form_submit_button("Enviar respuesta")
+
+# ========= Botones fuera del formulario =========
+st.markdown("#### Acciones rápidas sobre municipios")
+col1b, col2b = st.columns([1,1])
+with col1b:
+    if st.button("Toda la jurisdicción"):
+        st.session_state.muni_sel = mun_list[:]
+        st.session_state._mun_sel_all = True
+        st.success("Se seleccionaron todos los municipios.")
+with col2b:
+    if st.button("Limpiar selección"):
+        st.session_state.muni_sel = []
+        st.session_state._mun_sel_all = False
+        st.info("Selección de municipios limpiada.")
 
 # ========= Guardado de respuestas =========
 if submitted:
@@ -290,4 +288,3 @@ if submitted:
     }
     save_response(resp)
     st.success("Respuesta guardada correctamente.")
-
