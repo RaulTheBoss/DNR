@@ -306,7 +306,7 @@ def _drop_datetime_cols_for_folium(gdf):
     return gdf
 
 # --------- Login ----------
-st.title("Encuesta proyectos DNR - Historial y Última Respuesta")
+st.title("Formulario para la regionalización de la inversión de proyectos DRN")
 users_df = load_users(USERS_PATH)
 
 # --- Sanitizar CSV (opcional, idempotente)
@@ -734,6 +734,7 @@ if not df_latest.empty:
             folium.CircleMarker(location=[lat, lon], radius=6, popup=popup).add_to(m)
 
 st_folium(m, height=520, width=1000)
+
 
 
 
