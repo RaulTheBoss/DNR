@@ -461,8 +461,8 @@ with st.form("encuesta_form"):
     fecha_dilig = st.date_input("Fecha de diligenciamiento", value=date.today())
 
     # Municipios
-    st.markdown("**Municipios del proyecto**")
-    st.write("Opcional: sube un .zip con shp,dbf,shx,prj o un .kmz/.kml para detectar municipios automáticamente.")
+    st.markdown("**Localizaciòn del proyecto**")
+    st.write("Opcional: sube un .zip con .shp,.dbf,.shx,.prj o un .kmz/.kml del poligono o puntos del proyecto para detectar municipios automáticamente.")
     geo_file = st.file_uploader("Archivo geográfico (opcional)", type=["zip", "kmz", "kml"])
     preview_clicked = st.form_submit_button("🔎 Previsualizar capa y detectar municipios", type="secondary")
 
@@ -513,7 +513,7 @@ with st.form("encuesta_form"):
     # ---- inversión: solo radio, sin pregunta condicional ----
     st.markdown("**Inversión por municipios**")
     inversion_equidad = st.radio(
-        "¿La inversión se distribuye equitativamente entre los municipios? por favor mencionar por municipio el valor de la inversiòn de la siguiente manera: municipio valor ( Ejemplo: SOACHA 1250000; SUTATAUSA 10000000; SIMIJICA 13000000)  ",
+        "¿La inversión se distribuye equitativamente entre los municipios?",
         options=["Si", "No"],
         index=0,
         horizontal=True
@@ -521,7 +521,7 @@ with st.form("encuesta_form"):
     inversion_distribucion = ""  # se mantiene vacío (sin campo adicional)
 
     # Comentario libre (puedes usarlo para detallar distribución si quieres)
-    comentario = st.text_area("Si no se distribuye equitativamente el recurso ¿Cómo se distribuye?")
+    comentario = st.text_area("Si no se distribuye equitativamente el recurso ¿Cómo se distribuye?, por favor mencionar por municipio el valor de la inversiòn de la siguiente manera: municipio valor ( Ejemplo: SOACHA 1250000; SUTATAUSA 10000000; SIMIJICA 13000000)  ")
 
     submitted = st.form_submit_button("Enviar respuesta")
 
@@ -734,6 +734,7 @@ if not df_latest.empty:
             folium.CircleMarker(location=[lat, lon], radius=6, popup=popup).add_to(m)
 
 st_folium(m, height=520, width=1000)
+
 
 
 
